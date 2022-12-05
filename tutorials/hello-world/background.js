@@ -4,11 +4,20 @@ chrome.action.onClicked.addListener((tab) => {
       "target": { "tabId": tab.id },
       "function": showReadme,
     });
+
+
+
   }
+
+
 });
 
 
 function showReadme() {
+
+  
+  searchProd = document.querySelector("div.row > div.col-md-6 > h3").innerText
+  urlFind(searchProd)
 
   function urlFind(prodTitle) {
     fetch('https://www.akakce.com/arama/?q=' + prodTitle).then(function (response) {
@@ -23,12 +32,29 @@ function showReadme() {
 
       var cat = doc.querySelector('div.rw_v8.search_v8 a:first-child');
 
+      var pAll = doc.querySelectorAll('#APL li');
       var pids = doc.querySelectorAll('#APL > li[data-pr]');
+      
+      var pTitle = doc.querySelector('a').attributes.title.value;
       // document.querySelector("#datas").innerHTML = cat;
       // var pTitle = doc.querySelectorAll('#APL li a');
       // var pPrice = doc.querySelector("#APL > li:nth-child(2) > div > ul > li.b").querySelector("a span span").innerText
 
+      for (let p of pAll) {
+        //console.log(p.innerText)
+        var pTitle = p.querySelector('h3').innerHTML;
+        
+        var pPriceAll = p.querySelector("span.pt_v8").innerText;
 
+        // var plink = p.querySelector('a.iC').attributes.href;
+
+        var pPrice = p.querySelector("span > span > span.pb_v8 > span").innerText;
+        // console.log(pPriceAll);
+        console.log( p,pPriceAll, pTitle);
+
+      }
+
+      // URL
       var url = "https://www.akakce.com/j/pl/qv/v3/?p=";
       pids.forEach(function (value) {
         var urlId = value.attributes[0].value;
@@ -38,9 +64,19 @@ function showReadme() {
 
       url = url.slice(0, -1);
       url += "&b=179&0.42535340493533313";
-      console.log(url)
-      return url
-      console.log(cat)
+
+
+
+      var category = "https://www.akakce.com" + cat.attributes.href.value;
+      console.log(category)
+      // chrome.tabs.create({
+      //   url: url.toString()
+      // });
+
+   
+
+      // return url
+      // console.log(cat)
 
 
 
@@ -51,8 +87,12 @@ function showReadme() {
       console.warn('Something went wrong.', err);
     });
   }
-  var url = "https://www.akakce.com/j/pl/qv/v3/?p=18187615,1509853630,78877681,1306324594,16798963,1898548209&b=179&0.42535340493533323"
-  fpc(url);
+
+
+  // var url = "https://www.akakce.com/j/pl/qv/v3/?p=18187615,1509853630,78877681,1306324594,16798963,1898548209&b=179&0.42535340493533323"
+  // fpc(url);
+
+
   function fpc(url) {
     fetch(url).then(function (response) {
       // The API call was successful!
@@ -104,7 +144,6 @@ function showReadme() {
 
 
 
-  searchProd = document.querySelector("div.row > div.col-md-6 > h3").innerText
 
 
   //
