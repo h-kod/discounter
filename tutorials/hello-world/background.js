@@ -16,7 +16,7 @@ chrome.action.onClicked.addListener((tab) => {
 function showReadme() {
 
   
-  searchProd = document.querySelector("div.row > div.col-md-6 > h3").innerText
+  searchProd = document.querySelector("h3:first-child").innerText;
   urlFind(searchProd)
 
   function urlFind(prodTitle) {
